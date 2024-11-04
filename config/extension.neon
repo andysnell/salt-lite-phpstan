@@ -1,0 +1,12 @@
+# Register Custom Extension Services
+# Note: These are defined separately from the main PHPStan config to allow reuse
+# with Rector, which conflicts with the base configuration's inclusion of the
+# "bleeding edge" PHPStan extension.
+
+services:
+    - class: \PhoneBurner\SaltLite\Phpstan\Type\StrStringableTypeSpecifyingExtension
+      tags:
+          - phpstan.typeSpecifier.staticMethodTypeSpecifyingExtension
+    - class: \PhoneBurner\SaltLite\Phpstan\Type\ContainerInterfaceReturnTypeExtension
+      tags:
+          - phpstan.broker.dynamicMethodReturnTypeExtension

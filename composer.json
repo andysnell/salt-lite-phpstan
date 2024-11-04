@@ -1,0 +1,65 @@
+{
+  "name": "phoneburner/salt-lite-phpstan",
+  "description": "Custom PHPStan Rules for the Salt-Lite Framework",
+  "type": "library",
+  "license": "proprietary",
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "repositories": [
+    {
+      "type": "github",
+      "url": "https://github.com/phoneburner/salt-lite-framework"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/andysnell/http-tortilla"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/tjlytle/api-handler"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/PhoneBurnerOpenSource/composer-replacements"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/PhoneBurnerOpenSource/php-coding-standard"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "PhoneBurner\\SaltLite\\Phpstan\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^8.3 || ^8.4",
+    "jangregor/phpstan-prophecy": "^1.0",
+    "phoneburner/api-handler": "dev-RC2-dev as 1.0.0",
+    "phoneburner/composer-replacements": "dev-main",
+    "phoneburner/http-tortilla": "dev-v2.x-dev as 2.0.0",
+    "phoneburner/salt-lite-framework": "dev-main",
+    "phpstan/extension-installer": "^1.4",
+    "phpstan/phpstan": "^1.12",
+    "phpstan/phpstan-deprecation-rules": "^1.2.1",
+    "phpstan/phpstan-doctrine": "^1.5.3",
+    "phpstan/phpstan-phpunit": "^1.4",
+    "spaze/phpstan-disallowed-calls": "^3.5"
+  },
+  "require-dev": {
+    "phoneburner/coding-standard": "dev-main"
+  },
+  "extra": {
+    "phpstan": {
+      "includes": [
+        "config/extension.neon",
+        "config/rules.neon"
+      ]
+    }
+  }
+}

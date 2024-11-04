@@ -1,0 +1,3 @@
+rules:
+    - \PhoneBurner\SaltLite\Phpstan\Rules\JobClassesMustImplementInvoke
+    - \PhoneBurner\SaltLite\Phpstan\Rules\ServiceProvidersMustBeRegistered
