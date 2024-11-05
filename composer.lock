@@ -3347,12 +3347,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:phoneburner/salt-lite-framework.git",
-                "reference": "5e749f69ad1c9fb15d148e9726157ff6a664bb36"
+                "reference": "35432c4a3731071ee2ff978789d55dbffe0df48b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phoneburner/salt-lite-framework/zipball/5e749f69ad1c9fb15d148e9726157ff6a664bb36",
-                "reference": "5e749f69ad1c9fb15d148e9726157ff6a664bb36",
+                "url": "https://api.github.com/repos/phoneburner/salt-lite-framework/zipball/35432c4a3731071ee2ff978789d55dbffe0df48b",
+                "reference": "35432c4a3731071ee2ff978789d55dbffe0df48b",
                 "shasum": ""
             },
             "require": {
@@ -3425,6 +3425,7 @@
                 "brianium/paratest": "^7.5",
                 "filp/whoops": "^2.16",
                 "phoneburner/coding-standard": "dev-main",
+                "phoneburner/salt-lite-phpstan": "dev-main",
                 "php-parallel-lint/php-parallel-lint": "^1.4",
                 "phpspec/prophecy": "^1.19",
                 "phpspec/prophecy-phpunit": "^2.2",
@@ -3491,7 +3492,7 @@
                 "source": "https://github.com/phoneburner/salt-lite-framework/tree/main",
                 "issues": "https://github.com/phoneburner/salt-lite-framework/issues"
             },
-            "time": "2024-11-04T20:24:49+00:00"
+            "time": "2024-11-04T23:33:49+00:00"
         },
         {
             "name": "php-di/invoker",

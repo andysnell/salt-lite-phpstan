@@ -54,6 +54,31 @@
   "require-dev": {
     "phoneburner/coding-standard": "dev-main"
   },
+  "scripts": {
+    "lint": "@php vendor/bin/parallel-lint -j $(nproc) --show-deprecated --exclude vendor --exclude build .",
+    "phpcbf": "@php vendor/bin/phpcbf --parallel=$(nproc) --report=full",
+    "phpcs": "@php vendor/bin/phpcs --parallel=$(nproc) --report=full",
+    "phpstan": "@php vendor/bin/phpstan analyze --memory-limit=-1",
+    "test": [
+      "@putenv XDEBUG_MODE=off",
+      "@php vendor/bin/phpunit"
+    ],
+    "test-coverage": [
+      "@putenv XDEBUG_MODE=coverage",
+      "@php vendor/bin/phpunit --coverage-html=build/phpunit"
+    ],
+    "test-parallel": [
+      "@php vendor/bin/paratest"
+    ],
+    "rector": "@php vendor/bin/rector process",
+    "ci": [
+      "@lint",
+      "@phpcs",
+      "@test",
+      "@phpstan",
+      "@php vendor/bin/rector process --dry-run --clear-cache"
+    ]
+  },
   "extra": {
     "phpstan": {
       "includes": [
