@@ -97,6 +97,10 @@ phpstan: build
 rector: build
 	@$(app) composer run-script rector
 
+.PHONY: rector-dry-run
+rector-dry-run: build
+	@$(app) composer run-script rector-dry-run
+
 .PHONY: ci
 ci: build
 	@$(app) composer run-script ci

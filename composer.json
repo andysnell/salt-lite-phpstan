@@ -52,13 +52,14 @@
     "spaze/phpstan-disallowed-calls": "^3.5"
   },
   "require-dev": {
-    "phoneburner/coding-standard": "dev-main"
+    "phoneburner/coding-standard": "dev-main",
+    "php-parallel-lint/php-parallel-lint": "^1.4"
   },
   "scripts": {
     "lint": "@php vendor/bin/parallel-lint -j $(nproc) --show-deprecated --exclude vendor --exclude build .",
     "phpcbf": "@php vendor/bin/phpcbf --parallel=$(nproc) --report=full",
     "phpcs": "@php vendor/bin/phpcs --parallel=$(nproc) --report=full",
-    "phpstan": "@php vendor/bin/phpstan analyze --memory-limit=-1",
+    "phpstan": "@php vendor/bin/phpstan analyze --memory-limit=-1 --verbose",
     "test": [
       "@putenv XDEBUG_MODE=off",
       "@php vendor/bin/phpunit"
@@ -71,6 +72,7 @@
       "@php vendor/bin/paratest"
     ],
     "rector": "@php vendor/bin/rector process",
+    "rector-dry-run": "@php vendor/bin/rector process --dry-run",
     "ci": [
       "@lint",
       "@phpcs",
