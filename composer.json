@@ -10,6 +10,7 @@
       "phpstan/extension-installer": true
     }
   },
+  "minimum-stability": "dev",
   "repositories": [
     {
       "type": "github",
@@ -17,11 +18,15 @@
     },
     {
       "type": "github",
-      "url": "https://github.com/andysnell/http-tortilla"
+      "url": "https://github.com/PhoneBurnerOpenSource/http-tortilla"
     },
     {
       "type": "github",
-      "url": "https://github.com/tjlytle/api-handler"
+      "url": "https://github.com/PhoneBurnerOpenSource/api-handler"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/PhoneBurnerOpenSource/link-tortilla"
     },
     {
       "type": "github",
@@ -40,9 +45,7 @@
   "require": {
     "php": "^8.3 || ^8.4",
     "jangregor/phpstan-prophecy": "^1.0",
-    "phoneburner/api-handler": "dev-RC2-dev as 1.0.0",
     "phoneburner/composer-replacements": "dev-main",
-    "phoneburner/http-tortilla": "dev-v2.x-dev as 2.0.0",
     "phoneburner/salt-lite-framework": "dev-main",
     "phpstan/extension-installer": "^1.4",
     "phpstan/phpstan": "^1.12",
