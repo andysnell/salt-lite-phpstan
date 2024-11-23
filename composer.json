@@ -10,7 +10,6 @@
       "phpstan/extension-installer": true
     }
   },
-  "minimum-stability": "dev",
   "repositories": [
     {
       "type": "github",
@@ -44,15 +43,18 @@
   },
   "require": {
     "php": "^8.3 || ^8.4",
-    "jangregor/phpstan-prophecy": "^1.0",
+    "jangregor/phpstan-prophecy": "^2",
     "phoneburner/composer-replacements": "dev-main",
-    "phoneburner/salt-lite-framework": "dev-main",
-    "phpstan/extension-installer": "^1.4",
-    "phpstan/phpstan": "^1.12",
-    "phpstan/phpstan-deprecation-rules": "^1.2.1",
-    "phpstan/phpstan-doctrine": "^1.5.3",
-    "phpstan/phpstan-phpunit": "^1.4",
-    "spaze/phpstan-disallowed-calls": "^3.5"
+    "phoneburner/salt-lite-framework": "dev-main@dev",
+    "phoneburner/api-handler": "dev-develop",
+    "phoneburner/http-tortilla": "dev-develop",
+    "phoneburner/link-tortilla": "dev-main",
+    "phpstan/extension-installer": "^1.4.3",
+    "phpstan/phpstan": "^2.0.2",
+    "phpstan/phpstan-deprecation-rules":"^2",
+    "phpstan/phpstan-doctrine": "^2",
+    "phpstan/phpstan-phpunit": "^2.0.1",
+    "spaze/phpstan-disallowed-calls": "^4.0.1"
   },
   "require-dev": {
     "phoneburner/coding-standard": "dev-main",
