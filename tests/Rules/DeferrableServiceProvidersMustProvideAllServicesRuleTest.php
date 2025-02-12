@@ -18,7 +18,7 @@ use PHPStan\Testing\RuleTestCase;
 /**
  * @extends RuleTestCase<SUT>
  */
-class DeferrableServiceProvidersMustProvideAllServicesRuleTest extends RuleTestCase
+final class DeferrableServiceProvidersMustProvideAllServicesRuleTest extends RuleTestCase
 {
     private const string FIXTURE_BASE_DIR = __DIR__ . '/Fixtures/DeferrableServiceProvidersMustProvideAllServicesRule/';
 
@@ -27,6 +27,7 @@ class DeferrableServiceProvidersMustProvideAllServicesRuleTest extends RuleTestC
         return new SUT(self::createReflectionProvider());
     }
 
+    #[\Override]
     protected function getCollectors(): array
     {
         return [
@@ -49,6 +50,7 @@ class DeferrableServiceProvidersMustProvideAllServicesRuleTest extends RuleTestC
         ]);
     }
 
+    #[\Override]
     public static function getAdditionalConfigFiles(): array
     {
         return [__DIR__ . '/../../config/extension.neon'];

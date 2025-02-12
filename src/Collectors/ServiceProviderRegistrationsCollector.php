@@ -7,6 +7,7 @@ namespace PhoneBurner\SaltLite\Phpstan\Collectors;
 use PhoneBurner\SaltLite\Framework\App\App;
 use PhoneBurner\SaltLite\Framework\Container\ServiceProvider;
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use PHPStan\Analyser\Scope;
@@ -40,7 +41,7 @@ class ServiceProviderRegistrationsCollector implements Collector
             return null;
         }
 
-        if (! $node->args[0] instanceof Node\Arg) {
+        if (! $node->args[0] instanceof Arg) {
             return null;
         }
 

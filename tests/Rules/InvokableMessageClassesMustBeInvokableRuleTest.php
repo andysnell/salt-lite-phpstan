@@ -10,7 +10,7 @@ use PHPStan\Testing\RuleTestCase;
 /**
  * @extends RuleTestCase<InvokableMessageClassesMustBeInvokableRule>
  */
-class InvokableMessageClassesMustBeInvokableRuleTest extends RuleTestCase
+final class InvokableMessageClassesMustBeInvokableRuleTest extends RuleTestCase
 {
     private const string FIXTURE_BASE_DIR = __DIR__ . '/Fixtures/InvokableMessageClassesMustBeInvokableRule/';
 
@@ -27,6 +27,7 @@ class InvokableMessageClassesMustBeInvokableRuleTest extends RuleTestCase
         ]);
     }
 
+    #[\Override]
     public static function getAdditionalConfigFiles(): array
     {
         return [__DIR__ . '/../../config/extension.neon'];

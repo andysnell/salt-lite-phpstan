@@ -47,7 +47,7 @@
     }
   },
   "require": {
-    "php": "^8.3 || ^8.4",
+    "php": "^8.4",
     "jangregor/phpstan-prophecy": "^2",
     "phoneburner/composer-replacements": "dev-main",
     "phpstan/extension-installer": "^1.4.3",
@@ -64,7 +64,8 @@
     "phoneburner/link-tortilla": "dev-main",
     "phoneburner/salt-lite-framework": "dev-main@dev",
     "php-parallel-lint/php-parallel-lint": "^1.4",
-    "phpunit/phpunit": "^11.5"
+    "phpunit/phpunit": "^11.5",
+    "rector/rector": "^2.0"
   },
   "scripts": {
     "lint": "@php vendor/bin/parallel-lint -j $(nproc) --show-deprecated --exclude vendor --exclude build .",
