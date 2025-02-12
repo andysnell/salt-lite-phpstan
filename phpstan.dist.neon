@@ -11,6 +11,9 @@ parameters:
         - src
         - tests
 
+    excludePaths:
+        - tests/Rules/Fixtures
+
     ignoreErrors:
         - identifier: missingType.iterableValue
         - identifier: staticMethod.alreadyNarrowedType

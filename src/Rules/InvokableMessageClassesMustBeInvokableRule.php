@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Phpstan\Rules;
 
-use PhoneBurner\SaltLite\Framework\Queue\Job;
+use PhoneBurner\SaltLite\Framework\MessageBus\Message\InvokableMessage;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
@@ -14,11 +14,11 @@ use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements Rule<InClassNode>
  */
-class JobClassesMustImplementInvoke implements Rule
+class InvokableMessageClassesMustBeInvokableRule implements Rule
 {
-    private const string IDENTIFIER = 'saltlite.callableClassesMustImplementInvoke';
+    public const string IDENTIFIER = 'saltlite.callableClassesMustImplementInvoke';
 
-    private const string MESSAGE = 'Implementations of ' . Job::class . ' must define a __invoke() method';
+    public const string MESSAGE = 'Implementations of ' . InvokableMessage::class . ' must define a __invoke() method';
 
     #[\Override]
     public function getNodeType(): string
@@ -33,7 +33,7 @@ class JobClassesMustImplementInvoke implements Rule
 
         $class = $node->getClassReflection();
 
-        if (! $class->implementsInterface(Job::class)) {
+        if (! $class->implementsInterface(InvokableMessage::class)) {
             return [];
         }
 

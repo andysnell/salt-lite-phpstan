@@ -56,6 +56,7 @@ class StrStringableTypeSpecifyingExtension implements StaticMethodTypeSpecifying
             $node->getArgs()[0]->value,
             new UnionType([new StringType(), new ObjectType(\Stringable::class)]),
             TypeSpecifierContext::createTruthy(),
+            $scope,
         ) ?? throw new \LogicException('TypeSpecifier is not set');
     }
 }

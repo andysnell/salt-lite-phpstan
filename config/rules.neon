@@ -1,3 +1,6 @@
 rules:
-    - \PhoneBurner\SaltLite\Phpstan\Rules\JobClassesMustImplementInvoke
-    - \PhoneBurner\SaltLite\Phpstan\Rules\ServiceProvidersMustBeRegistered
+    - \PhoneBurner\SaltLite\Phpstan\Rules\InvokableMessageClassesMustBeInvokableRule
+    - \PhoneBurner\SaltLite\Phpstan\Rules\DeferrableServiceProvidersMustProvideAllServicesRule
+    - \PhoneBurner\SaltLite\Phpstan\Rules\ServiceProvidersMustBeRegisteredRule
+    - \PhoneBurner\SaltLite\Phpstan\Rules\CommandsMustHaveAsCommandAttributeRule
+    - \PhoneBurner\SaltLite\Phpstan\Rules\CommandsMustBeRegisteredRule

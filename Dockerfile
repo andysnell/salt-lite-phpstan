@@ -36,7 +36,7 @@ EOF
 RUN <<-EOF
   set -eux
   docker-php-ext-install -j$(nproc) bcmath exif gmp intl pcntl pdo_mysql zip
-  MAKEFLAGS="-j $(nproc)" pecl install amqp igbinary redis timezonedb xdebug-3.4.0beta1
+  MAKEFLAGS="-j $(nproc)" pecl install amqp igbinary redis timezonedb xdebug
   docker-php-ext-enable amqp igbinary redis timezonedb xdebug
   find "$(php-config --extension-dir)" -name '*.so' -type f -exec strip --strip-all {} \;
   rm -rf /tmp/pear

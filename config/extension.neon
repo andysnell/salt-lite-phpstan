@@ -10,3 +10,9 @@ services:
     - class: \PhoneBurner\SaltLite\Phpstan\Type\ContainerInterfaceReturnTypeExtension
       tags:
           - phpstan.broker.dynamicMethodReturnTypeExtension
+    - class: \PhoneBurner\SaltLite\Phpstan\Collectors\ServiceProviderClassCollector
+      tags:
+        - phpstan.collector
+    - class: \PhoneBurner\SaltLite\Phpstan\Collectors\ServiceProviderRegistrationsCollector
+      tags:
+        - phpstan.collector

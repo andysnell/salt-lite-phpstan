@@ -1,7 +1,7 @@
 SHELL := bash
 .DEFAULT_GOAL := build
 
-app = docker compose run --rm php
+app = docker compose run --rm app
 
 # Define behavior to safely source file (1) to dist file (2), without overwriting
 # if the dist file already exists. This is more portable than using `cp --no-clobber`.

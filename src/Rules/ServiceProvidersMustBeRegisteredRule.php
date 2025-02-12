@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Phpstan\Rules;
 
+use PhoneBurner\SaltLite\Framework\Container\ServiceContainer\ServiceContainerFactory;
 use PhoneBurner\SaltLite\Framework\Container\ServiceProvider;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
@@ -16,11 +17,11 @@ use const PhoneBurner\SaltLite\Framework\APP_ROOT;
 /**
  * @implements Rule<InClassNode>
  */
-class ServiceProvidersMustBeRegistered implements Rule
+class ServiceProvidersMustBeRegisteredRule implements Rule
 {
-    private const string IDENTIFIER = 'saltlite.serviceProviderRegistration';
+    public const string IDENTIFIER = 'saltlite.serviceProviderRegistration';
 
-    private const string MESSAGE = 'Service Provider Not Registered in ' . APP_ROOT . '/config/container.php';
+    public const string MESSAGE = 'Service Provider Not Registered in "config/container.php"';
 
     #[\Override]
     public function getNodeType(): string
@@ -43,7 +44,13 @@ class ServiceProvidersMustBeRegistered implements Rule
             return [];
         }
 
+        // Is the class registered in the container configuration?
         if (\in_array($class->getName(), $this->getRegisteredProviders(), true)) {
+            return [];
+        }
+
+        // Is the class a framework provider that is hardcoded in the service container factory?
+        if (\in_array($class->getName(), ServiceContainerFactory::FRAMEWORK_PROVIDERS, true)) {
             return [];
         }
 
