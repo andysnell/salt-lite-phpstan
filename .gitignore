@@ -1,11 +1,12 @@
+/.cursor/
 /.idea/
 /.github/
 /build/
-/vendor/
 /html/phpunit
+/vendor/
 
 .env
-phpunit.xml
-user.ini
 docker-compose.override.yml
 phpstan.neon
+phpunit.xml
+user.ini

@@ -9,17 +9,16 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 
 /**
  * @implements Rule<InClassNode>
  */
-class CommandsMustHaveAsCommandAttributeRule implements Rule
+class CommandsMustHaveCommandSuffixRule implements Rule
 {
-    private const string IDENTIFIER = 'saltlite.commandRegistration';
+    public const string IDENTIFIER = 'saltlite.commandNameSuffix';
 
-    private const string MESSAGE = 'Commands must declare the ' . AsCommand::class . ' attribute';
+    public const string MESSAGE = 'Command Class Name Must End with "Command" Suffix';
 
     #[\Override]
     public function getNodeType(): string
@@ -37,7 +36,8 @@ class CommandsMustHaveAsCommandAttributeRule implements Rule
             return [];
         }
 
-        if (\count($class->getNativeReflection()->getAttributes(AsCommand::class)) === 1) {
+        $file = $class->getFileName();
+        if ($file === null || \str_ends_with($file, 'Command.php')) {
             return [];
         }
 

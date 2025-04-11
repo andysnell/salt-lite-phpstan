@@ -48,7 +48,6 @@
   },
   "require": {
     "php": "^8.4",
-    "jangregor/phpstan-prophecy": "^2",
     "phoneburner/composer-replacements": "dev-main",
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan": "^2.0.2",

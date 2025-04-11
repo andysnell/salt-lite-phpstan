@@ -21,7 +21,7 @@ class CommandsMustBeRegisteredRule implements Rule
 {
     public const string IDENTIFIER = 'saltlite.commandRegistration';
 
-    public const string MESSAGE = 'Command Not Registered in "config/commands.php"';
+    public const string MESSAGE = 'Command Not Registered in "config/console.php"';
 
     #[\Override]
     public function getNodeType(): string
@@ -35,7 +35,7 @@ class CommandsMustBeRegisteredRule implements Rule
         \assert($node instanceof InClassNode);
 
         $class = $node->getClassReflection();
-        if (! $class->isSubclassOf(Command::class) || $class->isAbstract()) {
+        if (! $class->is(Command::class) || $class->isAbstract()) {
             return [];
         }
 

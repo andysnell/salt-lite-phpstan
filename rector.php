@@ -19,6 +19,7 @@ return RectorConfig::configure()
     ->withAttributesSets(all: true)
     ->withPreparedSets(
         deadCode: true,
+        codingStyle: true,
         typeDeclarations: true,
         privatization: true,
         instanceOf: true,
