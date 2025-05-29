@@ -54,8 +54,8 @@ build: | phpstan.neon phpunit.xml .env
 
 .PHONY: clean
 clean:
-	$(app) -rf ./build ./vendor html/phpunit
-	$(app) find /var/www/storage/ -type f -not -name .gitignore -delete
+	$(app) rm -rf ./build ./vendor html/phpunit
+	$(app) find /app/storage/ -type f -not -name .gitignore -delete
 
 .PHONY: up
 up:
