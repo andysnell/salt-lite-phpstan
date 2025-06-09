@@ -1,5 +1,4 @@
 SHELL := bash
-.DEFAULT_GOAL := build
 .SHELLFLAGS = -ec
 .DEFAULT_GOAL := build/.install
 .WAIT:
@@ -89,7 +88,7 @@ phpunit.xml:
 $(BUILD_DIRS): | .env phpstan.neon phpunit.xml
 	mkdir --parents "$@"
 
-vendor: build/docker/docker-compose.json composer.json composer.lock | .env
+vendor: build/composer build/docker/docker-compose.json composer.json composer.lock | .env
 	mkdir --parents "$@"
 	@$(call check-token,GITHUB_TOKEN)
 	$(docker-app) composer install
@@ -136,6 +135,10 @@ ci: lint phpcs phpstan phpunit prettier-check rector-dry-run
 .PHONY: pre-ci preci
 pre-ci preci: phpcbf prettier-write rector ci
 
+# Run the PHP development server to serve the HTML test coverage report on port 8000.
+.PHONY: serve-coverage
+serve-coverage: build/.install
+	@docker compose run --rm --publish 8000:80 app php -S 0.0.0.0:80 -t /app/build/phpunit
 
 ##------------------------------------------------------------------------------
 # Prettier Code Formatter for JSON, YAML, HTML, Markdown, and CSS Files

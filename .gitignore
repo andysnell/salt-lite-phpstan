@@ -10,7 +10,6 @@
 /build
 /vendor
 
-
 # Ignore environment files, except for the default distribution file
 .env
 .env.dist
@@ -25,8 +24,5 @@ phpstan-baseline.neon
 phpstan-baseline.php
 phpstan.neon
 phpunit.xml
-
-# Ignore INI Files
 *.ini
-!php-development.ini
-!php-production.ini
+

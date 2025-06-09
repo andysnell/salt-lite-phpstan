@@ -38,7 +38,7 @@ RUN --mount=type=tmpfs,target=/tmp/pear <<-EOF
   docker-php-ext-install -j$(nproc) bcmath exif gmp intl opcache pcntl pdo_mysql zip
   pecl install amqp igbinary redis xdebug
   docker-php-ext-enable amqp igbinary redis xdebug
-  cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+  cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
   cat <<-EOL >> "$PHP_INI_DIR/php.ini"
     date.timezone = UTC
     error_reporting = E_ALL & ~E_DEPRECATED
