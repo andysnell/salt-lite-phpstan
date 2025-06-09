@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Phpstan\Rules;
 
-use PhoneBurner\SaltLite\Framework\MessageBus\Message\InvokableMessage;
+use PhoneBurner\SaltLite\MessageBus\Message\InvokableMessage;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;

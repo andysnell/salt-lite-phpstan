@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Phpstan\Rules;
 
-use PhoneBurner\SaltLite\Framework\Container\ServiceContainer\ServiceContainerFactory;
-use PhoneBurner\SaltLite\Framework\Container\ServiceProvider;
+use PhoneBurner\SaltLite\Container\ServiceProvider;
+use PhoneBurner\SaltLite\Framework\Container\ServiceContainerFactory;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;

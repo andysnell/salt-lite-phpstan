@@ -1,7 +1,19 @@
 SHELL := bash
 .DEFAULT_GOAL := build
+.SHELLFLAGS = -ec
+.DEFAULT_GOAL := build/.install
+.WAIT:
 
-app = docker compose run --rm app
+_WARN := "\033[33m%s\033[0m %s\n"  # Yellow text template for "printf"
+_INFO := "\033[32m%s\033[0m %s\n" # Green text template for "printf"
+_ERROR := "\033[31m%s\033[0m %s\n" # Red text template for "printf"
+
+##------------------------------------------------------------------------------
+# Command Aliases & Function/Variable Definitions
+##------------------------------------------------------------------------------
+
+docker-app = docker compose run --rm app
+docker-run = docker run --rm --env-file "$${PWD}/.env" --user=$$(id -u):$$(id -g)
 
 # Define behavior to safely source file (1) to dist file (2), without overwriting
 # if the dist file already exists. This is more portable than using `cp --no-clobber`.
@@ -34,28 +46,66 @@ define check-token
 	fi
 endef
 
-phpunit.xml:
-	@$(call copy-safe,phpunit.dist.xml,phpunit.xml)
+BUILD_DIRS = build \
+	build/.phpunit.cache \
+	build/composer \
+	build/docker \
+	build/phpstan \
+	build/phpunit \
+	build/psysh/config \
+	build/psysh/data \
+	build/psysh/tmp \
+	build/rector
+
+##------------------------------------------------------------------------------
+# Docker Targets
+##------------------------------------------------------------------------------
+
+build/docker/docker-compose.json: Dockerfile docker-compose.yml | build/docker
+	docker compose pull --quiet --policy="always"
+	COMPOSE_BAKE=true docker compose build \
+		--pull \
+		--build-arg USER_UID=$$(id -u) \
+		--build-arg USER_GID=$$(id -g)
+	touch "$@" # required to consistently update the file mtime
+
+build/docker/salt-lite-phpstan-%.json: Dockerfile | build/docker
+	docker buildx build --target="$*" --pull --load --tag="salt-lite-phpstan-$*" --file Dockerfile .
+	docker image inspect "salt-lite-phpstan-$*" > "$@"
+
+##------------------------------------------------------------------------------
+# Build/Setup/Teardown Targets
+##------------------------------------------------------------------------------
+
+.env:
+	@$(call copy-safe,.env.dist,.env)
 
 phpstan.neon:
 	@$(call copy-safe,phpstan.dist.neon,phpstan.neon)
 
-.env:
-	@$(call copy-safe,.env.example,.env)
+phpunit.xml:
+	@$(call copy-safe,phpunit.dist.xml,phpunit.xml)
 
-# The build target dependencies must be set as "order-only" prerequisites to prevent
-# the target from being rebuilt everytime the dependencies are updated.
-build: | phpstan.neon phpunit.xml .env
+$(BUILD_DIRS): | .env phpstan.neon phpunit.xml
+	mkdir --parents "$@"
+
+vendor: build/docker/docker-compose.json composer.json composer.lock | .env
+	mkdir --parents "$@"
 	@$(call check-token,GITHUB_TOKEN)
-	@docker compose build --pull
-	@$(app) composer install
-	@$(app) mkdir --parents build
-	@touch build
+	$(docker-app) composer install
+	@touch vendor
+
+build/.install : vendor build/docker/salt-lite-phpstan-prettier.json | $(BUILD_DIRS)
+	@echo "Application Build Complete."
+	@touch build/.install
 
 .PHONY: clean
 clean:
-	$(app) rm -rf ./build ./vendor html/phpunit
-	$(app) find /app/storage/ -type f -not -name .gitignore -delete
+	$(docker-app) rm -rf ./build ./vendor
+
+##------------------------------------------------------------------------------
+# Code Quality, Testing & Utility Targets
+##------------------------------------------------------------------------------
 
 .PHONY: up
 up:
@@ -66,41 +116,42 @@ down:
 	docker compose down --remove-orphans
 
 .PHONY: bash
-bash: build
-	@$(app) bash
+bash: build/docker/docker-compose.json
+	$(docker-app) bash
 
-.PHONY: lint
-lint: build
-	@$(app) composer run-script lint
+.PHONY: shell
+shell: build/.install
+	docker compose up --detach
+	$(docker-app) salt shell
 
-.PHONY: test
-test: build
-	@$(app) composer run-script test
+.PHONY: lint phpcbf phpcs phpstan phpunit phpunit-coverage rector rector-dry-run test
+lint phpcbf phpcs phpstan phpunit phpunit-coverage rector rector-dry-run test: build/.install
+	$(docker-app) composer run-script "$@"
 
-.PHONY: test-coverage
-test-coverage: build
-	@$(app) composer run-script test-coverage
+.NOTPARALLEL: ci pre-ci preci
+.PHONY: ci pre-ci preci
+ci: lint phpcs phpstan phpunit prettier-check rector-dry-run
 
-.PHONY: phpcs
-phpcs: build
-	@$(app) composer run-script phpcs
+.NOTPARALLEL: pre-ci preci
+.PHONY: pre-ci preci
+pre-ci preci: phpcbf prettier-write rector ci
 
-.PHONY: phpcbf
-phpcbf: build
-	@$(app) composer run-script phpcbf
 
-.PHONY: phpstan
-phpstan: build
-	@$(app) composer run-script phpstan
+##------------------------------------------------------------------------------
+# Prettier Code Formatter for JSON, YAML, HTML, Markdown, and CSS Files
+# Example Usage: `make prettier-check`, `makeprettier-write`
+##------------------------------------------------------------------------------
 
-.PHONY: rector
-rector: build
-	@$(app) composer run-script rector
+.PHONY: prettier-%
+prettier-%: | build/docker/salt-lite-phpstan-prettier.json
+	$(docker-run) --volume $${PWD}:/app salt-lite-phpstan-prettier --$* .
 
-.PHONY: rector-dry-run
-rector-dry-run: build
-	@$(app) composer run-script rector-dry-run
+##------------------------------------------------------------------------------
+# Enable Makefile Overrides
+#
+# If a "build/Makefile" exists, it can define additional targets/behavior and/or
+# override the targets of this Makefile. Note that this declaration has to occur
+# at the end of the file in order to effect the override behavior.
+##------------------------------------------------------------------------------
 
-.PHONY: ci
-ci: build
-	@$(app) composer run-script ci
+-include build/Makefile

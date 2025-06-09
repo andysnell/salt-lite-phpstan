@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Phpstan\Rules;
 
-use PhoneBurner\SaltLite\Framework\Container\DeferrableServiceProvider;
+use PhoneBurner\SaltLite\Container\DeferrableServiceProvider;
 use PhoneBurner\SaltLite\Phpstan\Collectors\ServiceProviderClassCollector;
 use PhoneBurner\SaltLite\Phpstan\Collectors\ServiceProviderRegistrationsCollector;
 use PhpParser\Node;

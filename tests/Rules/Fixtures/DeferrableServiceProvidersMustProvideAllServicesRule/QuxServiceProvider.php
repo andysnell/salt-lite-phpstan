@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Phpstan\Tests\Rules\Fixtures\DeferrableServiceProvidersMustProvideAllServicesRule;
 
-use PhoneBurner\SaltLite\Framework\App\App;
-use PhoneBurner\SaltLite\Framework\Container\DeferrableServiceProvider;
+use PhoneBurner\SaltLite\App\App;
+use PhoneBurner\SaltLite\Container\DeferrableServiceProvider;
 use PhoneBurner\SaltLite\Framework\Database\Doctrine\ConnectionProvider;
 use PhoneBurner\SaltLite\Framework\Database\Redis\RedisManager;
 use PhoneBurner\SaltLite\Framework\MessageBus\Container\MessageBusContainer;
-use PhoneBurner\SaltLite\Framework\MessageBus\Handler\InvokableMessageHandler;
-use PhoneBurner\SaltLite\Framework\MessageBus\MessageBus;
 use PhoneBurner\SaltLite\Framework\MessageBus\SymfonyMessageBusAdapter;
 use PhoneBurner\SaltLite\Framework\MessageBus\SymfonyRoutableMessageBusAdapter;
 use PhoneBurner\SaltLite\Framework\MessageBus\TransportFactory\AmazonSqsTransportFactory;
 use PhoneBurner\SaltLite\Framework\MessageBus\TransportFactory\AmqpTransportFactory;
 use PhoneBurner\SaltLite\Framework\MessageBus\TransportFactory\DoctrineTransportFactory;
 use PhoneBurner\SaltLite\Framework\MessageBus\TransportFactory\RedisTransportFactory;
+use PhoneBurner\SaltLite\MessageBus\Handler\InvokableMessageHandler;
+use PhoneBurner\SaltLite\MessageBus\MessageBus;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\RoutableMessageBus;
 use Symfony\Component\Messenger\Transport\Serialization\PhpSerializer;

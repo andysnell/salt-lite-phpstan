@@ -2,7 +2,17 @@
   "name": "phoneburner/salt-lite-phpstan",
   "description": "Custom PHPStan Rules for the Salt-Lite Framework",
   "type": "library",
-  "license": "proprietary",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tim Lytle",
+      "email": "tim@phoneburner.com"
+    },
+    {
+      "name": "Andy Snell",
+      "email": "andy@phoneburner.com"
+    }
+  ],
   "config": {
     "sort-packages": true,
     "allow-plugins": {
@@ -13,27 +23,31 @@
   "repositories": [
     {
       "type": "github",
+      "url": "https://github.com/phoneburner/salt-lite"
+    },
+    {
+      "type": "github",
       "url": "https://github.com/phoneburner/salt-lite-framework"
     },
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/http-tortilla"
+      "url": "https://github.com/phoneburner/http-tortilla"
     },
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/api-handler"
+      "url": "https://github.com/phoneburner/api-handler"
     },
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/link-tortilla"
+      "url": "https://github.com/phoneburner/link-tortilla"
     },
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/composer-replacements"
+      "url": "https://github.com/phoneburner/composer-replacements"
     },
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/php-coding-standard"
+      "url": "https://github.com/phoneburner/php-coding-standard"
     }
   ],
   "autoload": {
@@ -48,7 +62,6 @@
   },
   "require": {
     "php": "^8.4",
-    "phoneburner/composer-replacements": "dev-main",
     "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan": "^2.0.2",
     "phpstan/phpstan-deprecation-rules": "^2",
@@ -58,41 +71,47 @@
   },
   "require-dev": {
     "phoneburner/api-handler": "dev-develop",
-    "phoneburner/coding-standard": "dev-main",
+    "phoneburner/coding-standard": "^1.0.0",
+    "phoneburner/composer-replacements": "^1.0.0",
     "phoneburner/http-tortilla": "dev-develop",
     "phoneburner/link-tortilla": "dev-main",
-    "phoneburner/salt-lite-framework": "dev-main@dev",
+    "phoneburner/salt-lite": "^1.0@dev",
+    "phoneburner/salt-lite-framework": "^1.0@dev",
     "php-parallel-lint/php-parallel-lint": "^1.4",
-    "phpunit/phpunit": "^11.5",
-    "rector/rector": "^2.0"
+    "phpunit/phpunit": "^12.2.1",
+    "psy/psysh": "^0.12.8",
+    "rector/rector": "^2.0.17"
   },
   "scripts": {
-    "lint": "@php vendor/bin/parallel-lint -j $(nproc) --show-deprecated --exclude vendor --exclude build .",
-    "phpcbf": "@php vendor/bin/phpcbf --parallel=$(nproc) --report=full",
-    "phpcs": "@php vendor/bin/phpcs --parallel=$(nproc) --report=full",
+    "lint": "@php vendor/bin/parallel-lint -j $(nproc --ignore=2) --show-deprecated --exclude vendor --exclude build .",
+    "phpcbf": "@php vendor/bin/phpcbf --parallel=$(nproc --ignore=2) --report=full",
+    "phpcs": "@php vendor/bin/phpcs --parallel=$(nproc --ignore=2) --report=full",
     "phpstan": "@php vendor/bin/phpstan analyze --memory-limit=-1 --verbose",
-    "test": [
+    "phpunit": [
       "@putenv XDEBUG_MODE=off",
       "@php vendor/bin/phpunit"
     ],
-    "test-coverage": [
+    "phpunit-coverage": [
       "@putenv XDEBUG_MODE=coverage",
       "@php vendor/bin/phpunit --coverage-html=build/phpunit"
     ],
-    "test-parallel": [
-      "@php vendor/bin/paratest"
-    ],
     "rector": "@php vendor/bin/rector process",
-    "rector-dry-run": "@php vendor/bin/rector process --dry-run",
+    "rector-dry-run": "@php vendor/bin/rector process --dry-run --clear-cache",
+    "test": [
+      "@phpunit"
+    ],
     "ci": [
       "@lint",
       "@phpcs",
-      "@test",
+      "@phpunit",
       "@phpstan",
-      "@php vendor/bin/rector process --dry-run --clear-cache"
+      "@rector-dry-run"
     ]
   },
   "extra": {
+    "branch-alias": {
+      "dev-main": "1.0.x-dev"
+    },
     "phpstan": {
       "includes": [
         "config/extension.neon",

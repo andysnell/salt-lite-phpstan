@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Phpstan\Tests\Rules;
 
-use PhoneBurner\SaltLite\Framework\MessageBus\Handler\InvokableMessageHandler;
-use PhoneBurner\SaltLite\Framework\MessageBus\MessageBus;
 use PhoneBurner\SaltLite\Framework\MessageBus\TransportFactory\RedisTransportFactory;
+use PhoneBurner\SaltLite\MessageBus\Handler\InvokableMessageHandler;
+use PhoneBurner\SaltLite\MessageBus\MessageBus;
 use PhoneBurner\SaltLite\Phpstan\Collectors\ServiceProviderClassCollector;
 use PhoneBurner\SaltLite\Phpstan\Collectors\ServiceProviderRegistrationsCollector;
 use PhoneBurner\SaltLite\Phpstan\Rules\DeferrableServiceProvidersMustProvideAllServicesRule as SUT;

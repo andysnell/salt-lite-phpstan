@@ -3,10 +3,11 @@
 /.dockerignore              export-ignore
 /.editorconfig              export-ignore
 /.env                       export-ignore
-/.env.example               export-ignore
+/.env.dist                  export-ignore
 /.gitattributes             export-ignore
 /.github/                   export-ignore
 /.gitignore                 export-ignore
+/.prettierignore            export-ignore
 /.idea                      export-ignore
 /.psysh.php                 export-ignore
 /CHANGELOG.md               export-ignore
