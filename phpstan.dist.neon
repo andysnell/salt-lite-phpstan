@@ -18,6 +18,9 @@ parameters:
         - identifier: missingType.iterableValue
         - identifier: staticMethod.alreadyNarrowedType
 
+    dynamicConstantNames:
+        - PhoneBurner\SaltLite\Framework\APP_ROOT
+
     # Strict Analysis
     # https://phpstan.org/config-reference#stricter-analysis
     checkDynamicProperties: true
